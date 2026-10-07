@@ -1,0 +1,338 @@
+/* =========================
+   Hero Section
+========================= */
+
+.hero {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 115px 0 90px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-container {
+  width: min(1320px, 94%);
+  min-height: 520px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 55px;
+}
+
+
+/* =========================
+   Content
+========================= */
+
+.hero-content {
+  flex: 1;
+  max-width: 560px;
+}
+
+.hero-content h1 {
+  margin: 0 0 24px;
+
+  color: #0f172a;
+  font-size: clamp(42px, 5vw, 68px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.hero-content h1 span {
+  display: block;
+  background: linear-gradient(135deg, #1d68bd 0%, #1570ef 50%, #2eaf7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+  max-width: 520px;
+  margin: 0 0 36px;
+
+  color: #475569;
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+
+/* =========================
+   Buttons - Smooth Pill Edges & Logo Gradient Animation
+========================= */
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-primary-btn,
+.hero-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 52px;
+  padding: 0 30px;
+
+  border-radius: 9999px; /* Ultra-smooth rounded pill shape */
+  text-decoration: none;
+  white-space: nowrap !important;
+
+  font-size: 15.5px;
+  font-weight: 600;
+
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primary Button: Brand Logo Gradient + Shimmer Light Sweep */
+.hero-primary-btn {
+  background: linear-gradient(135deg, #1d68bd 0%, #1570ef 48%, #2eaf7d 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 6px 18px rgba(29, 104, 189, 0.35),
+    0 2px 8px rgba(46, 175, 125, 0.2);
+}
+
+/* Shimmer Sweep Animation on Hover */
+.hero-primary-btn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -70%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: rotate(25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+.hero-primary-btn:hover::after {
+  left: 140%;
+}
+
+.hero-primary-btn .btn-icon {
+  font-size: 19px;
+  transition: transform 0.25s ease;
+}
+
+.hero-primary-btn:hover {
+  transform: translateY(-3px) scale(1.015);
+  box-shadow:
+    0 12px 30px rgba(29, 104, 189, 0.48),
+    0 6px 16px rgba(46, 175, 125, 0.32);
+  filter: brightness(1.05);
+}
+
+.hero-primary-btn:hover .btn-icon {
+  transform: translateX(5px);
+}
+
+[dir="rtl"] .hero-primary-btn:hover .btn-icon {
+  transform: translateX(-5px);
+}
+
+.hero-primary-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+
+/* Secondary Button: Smooth Pill with Subtle Brand Border */
+.hero-secondary-btn {
+  background-color: #ffffff;
+  color: #1e293b;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.hero-secondary-btn:hover {
+  border-color: #1d68bd;
+  color: #1d68bd;
+  background-color: #f0f7ff;
+  transform: translateY(-3px) scale(1.015);
+  box-shadow: 0 8px 22px rgba(29, 104, 189, 0.15);
+}
+
+.hero-secondary-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+
+/* =========================================
+   Hero Image: 3D Mouse Parallax & Static Idle
+========================================= */
+
+.hero-image-container {
+  flex: 1.35;
+  max-width: 740px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient glow inspired by login page */
+.hero-image-ambient-glow {
+  position: absolute;
+  inset: -15px;
+  border-radius: 32px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(29, 104, 189, 0.15) 0%,
+    rgba(46, 175, 125, 0.08) 45%,
+    transparent 72%
+  );
+  filter: blur(34px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 3D Card Wrapper: Tracks mouse, does NOT float up and down */
+.hero-image-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+
+  overflow: hidden;
+  border-radius: 20px;
+
+  background-color: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
+
+  box-shadow:
+    0 22px 50px -10px rgba(15, 23, 42, 0.14),
+    0 10px 25px -8px rgba(29, 104, 189, 0.12);
+
+  transition:
+    transform 0.16s ease-out,
+    box-shadow 0.3s ease;
+
+  transform-style: preserve-3d;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.hero-image-wrapper:hover {
+  box-shadow:
+    0 30px 65px -12px rgba(15, 23, 42, 0.22),
+    0 18px 36px -10px rgba(29, 104, 189, 0.25);
+}
+
+/* Specular reflection sheen following cursor */
+.hero-image-sheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.hero-image-sheen.sheen-active {
+  opacity: 1;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+
+  .hero {
+    padding: 55px 0 65px;
+  }
+
+  .hero-container {
+    gap: 36px;
+  }
+
+  .hero-content h1 {
+    font-size: 44px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .hero-image-container {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 768px) {
+
+  .hero {
+    padding: 40px 0 50px;
+  }
+
+  .hero-container {
+    width: 92%;
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 36px;
+  }
+
+  .hero-content {
+    max-width: none;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    margin-bottom: 18px;
+    font-size: clamp(34px, 9vw, 44px);
+    letter-spacing: -0.8px;
+  }
+
+  .hero-content p {
+    max-width: 600px;
+    margin: 0 auto 26px;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-primary-btn,
+  .hero-secondary-btn {
+    width: 100%;
+  }
+
+  .hero-image-container {
+    width: 100%;
+    max-width: 100%;
+  }
+}

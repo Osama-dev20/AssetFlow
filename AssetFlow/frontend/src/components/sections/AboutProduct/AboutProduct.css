@@ -1,0 +1,214 @@
+/* ========================================================
+   About Product Section ("More Than Maintenance Management")
+   Luxurious Card Redesign with Logo Gradient Accents
+======================================================== */
+
+.about-product {
+  width: 100%;
+  padding: 110px 0;
+  background-color: #f8fafc;
+  position: relative;
+}
+
+.about-product-container {
+  width: min(1320px, 94%);
+  margin: 0 auto;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.about-product-header {
+  max-width: 760px;
+  margin: 0 auto 70px;
+  text-align: center;
+}
+
+.about-product .section-label {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #1d68bd;
+  background-color: rgba(29, 104, 189, 0.08);
+  border: 1px solid rgba(29, 104, 189, 0.16);
+  padding: 5px 18px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.about-product-header h2 {
+  margin: 0 0 20px;
+  color: #0f172a;
+  font-size: clamp(36px, 4.8vw, 54px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+}
+
+.about-product-header h2 span {
+  display: block;
+  background: linear-gradient(135deg, #1d68bd 0%, #2eaf7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-product-header p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #475569;
+  font-size: 17.5px;
+  line-height: 1.8;
+}
+
+
+/* ========================================================
+   Cards Grid & Luxury Styling
+======================================================== */
+
+.about-product-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.about-product-card {
+  position: relative;
+  overflow: hidden;
+  padding: 38px 32px 34px;
+  background-color: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animated Top Accent Border */
+.card-top-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1d68bd 0%, #2eaf7d 100%);
+  opacity: 0.2;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.about-product-card:hover .card-top-accent {
+  opacity: 1;
+  height: 4px;
+}
+
+.about-product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(29, 104, 189, 0.35);
+  box-shadow:
+    0 24px 50px -12px rgba(29, 104, 189, 0.16),
+    0 10px 20px -8px rgba(15, 23, 42, 0.06);
+}
+
+/* Card Header: Icon + Number */
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.card-icon-bubble {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(29, 104, 189, 0.1), rgba(46, 175, 125, 0.1));
+  border: 1px solid rgba(29, 104, 189, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d68bd;
+  transition: all 0.3s ease;
+}
+
+.about-product-card:hover .card-icon-bubble {
+  transform: scale(1.08) rotate(3deg);
+  background: linear-gradient(135deg, #1d68bd, #2eaf7d);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(29, 104, 189, 0.3);
+}
+
+.about-card-icon-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.card-number {
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1d68bd, #2eaf7d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+/* Category Badge */
+.card-badge {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2eaf7d;
+  background: rgba(46, 175, 125, 0.1);
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.about-product-card h3 {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  transition: color 0.2s ease;
+}
+
+.about-product-card:hover h3 {
+  color: #1d68bd;
+}
+
+.about-product-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 15.5px;
+  line-height: 1.75;
+  flex: 1;
+}
+
+.card-bottom-sheen {
+  margin-top: 20px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(29, 104, 189, 0.15), transparent);
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 960px) {
+  .about-product {
+    padding: 70px 0;
+  }
+
+  .about-product-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

@@ -1,0 +1,52 @@
+/* ========================================================
+   Global Smooth Scrolling & Dynamic Bidirectional Section Reveal
+======================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Dynamic Entrance when scrolling down & scrolling up */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(32px) scale(0.985);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-section.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Artistic Section Divider with Logo Brand Accent */
+.section-divider {
+  width: min(1200px, 92%);
+  height: 1px;
+  margin: 0 auto;
+  position: relative;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(29, 104, 189, 0.16) 20%,
+    rgba(46, 175, 125, 0.22) 50%,
+    rgba(29, 104, 189, 0.16) 80%,
+    transparent 100%
+  );
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #1d68bd, #2eaf7d);
+  filter: blur(2px);
+  opacity: 0.55;
+}

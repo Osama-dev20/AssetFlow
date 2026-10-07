@@ -1,0 +1,326 @@
+/* =========================
+   Audience Section
+========================= */
+
+.audience {
+  width: 100%;
+  padding: 110px 0;
+  background-color: #ffffff;
+}
+
+.audience-container {
+  width: min(1320px, 94%);
+  margin: 0 auto;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.audience-header {
+  max-width: 720px;
+  margin: 0 auto 65px;
+  text-align: center;
+}
+
+.audience .section-label {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #1d68bd;
+  background-color: rgba(29, 104, 189, 0.08);
+  border: 1px solid rgba(29, 104, 189, 0.16);
+  padding: 5px 16px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.audience-header h2 {
+  margin: 0 0 20px;
+  color: #0f172a;
+  font-size: clamp(36px, 4.8vw, 54px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.audience-header h2 span {
+  display: block;
+  background: linear-gradient(135deg, #1d68bd 0%, #2eaf7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.audience-header p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+
+/* =========================
+   Content
+========================= */
+
+.audience-content {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 55px;
+  align-items: stretch;
+}
+
+
+/* ========================================================
+   Smooth Cross-Fading Images Wrapper
+======================================================== */
+
+.audience-image-wrapper {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 22px;
+  background-color: #0f172a;
+  box-shadow:
+    0 24px 55px -12px rgba(15, 23, 42, 0.18),
+    0 10px 25px -8px rgba(29, 104, 189, 0.15);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+}
+
+.audience-ambient-card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(29, 104, 189, 0.15), transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Stacked cross-fading images */
+.audience-crossfade-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.audience-crossfade-img.is-active-img {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Glass Badge over Image */
+.audience-image-glass-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 10;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  animation: badgeFade 0.4s ease;
+}
+
+[dir="rtl"] .audience-image-glass-badge {
+  left: auto;
+  right: 24px;
+}
+
+.audience-badge-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #34d399;
+  margin-bottom: 3px;
+}
+
+.audience-badge-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+@keyframes badgeFade {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ========================================================
+   Interactive Audience Tabs List
+======================================================== */
+
+.audience-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.audience-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 22px;
+  border: 1.5px solid #f1f5f9;
+  border-radius: 16px;
+  background-color: #ffffff;
+  color: #0f172a;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+[dir="rtl"] .audience-item {
+  text-align: right;
+}
+
+.audience-item:hover {
+  border-color: rgba(29, 104, 189, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(29, 104, 189, 0.08);
+}
+
+/* Active Tab Highlight */
+.audience-item.active {
+  background: linear-gradient(135deg, rgba(29, 104, 189, 0.06) 0%, rgba(46, 175, 125, 0.04) 100%);
+  border-color: #1d68bd;
+  box-shadow: 0 10px 28px -5px rgba(29, 104, 189, 0.14);
+}
+
+.audience-item-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #1d68bd, #2eaf7d);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+[dir="rtl"] .audience-item-indicator {
+  left: auto;
+  right: 0;
+}
+
+.audience-item.active .audience-item-indicator {
+  opacity: 1;
+}
+
+.audience-item-content {
+  flex: 1;
+}
+
+.audience-item-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.audience-item-title {
+  display: block;
+  color: #0f172a;
+  font-size: 18.5px;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+
+.audience-item.active .audience-item-title {
+  color: #1d68bd;
+}
+
+.audience-item-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #2eaf7d;
+  background: rgba(46, 175, 125, 0.1);
+  padding: 2px 9px;
+  border-radius: 9999px;
+}
+
+.audience-desc-wrapper {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease, margin 0.35s ease;
+}
+
+.audience-desc-wrapper.expanded {
+  max-height: 120px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.audience-desc-wrapper p {
+  margin: 0;
+  color: #475569;
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.audience-arrow {
+  color: #94a3b8;
+  font-size: 20px;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.audience-item.active .audience-arrow {
+  color: #2eaf7d;
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .audience-item.active .audience-arrow {
+  transform: translateX(-4px);
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 960px) {
+  .audience {
+    padding: 70px 0;
+  }
+
+  .audience-content {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .audience-image-wrapper {
+    min-height: 360px;
+  }
+}
