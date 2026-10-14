@@ -1,0 +1,361 @@
+/* =========================================================================
+   Horizon Hero Cosmic Experience Scoped CSS
+   Pinned Sticky Scrollytelling with AssetFlow Visual Identity
+   ========================================================================= */
+
+.hero-scroll-wrapper {
+  position: relative;
+  width: 100%;
+  height: 420vh; /* Smooth generous scroll budget for all 4 stages */
+  background-color: #040711;
+  color: #f8fafc;
+  user-select: none;
+  font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.hero-sticky-stage {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+
+/* Subtle background vignette to ensure typography always pops */
+.stage-ambient-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(4, 7, 17, 0.25) 0%,
+    rgba(4, 7, 17, 0.65) 65%,
+    rgba(4, 7, 17, 0.95) 100%
+  );
+}
+
+/* Bottom blend gradient into site hero */
+.stage-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent 0%, #070b14 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Side branding */
+.side-menu {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s ease;
+}
+
+[dir="rtl"] .side-menu {
+  left: auto;
+  right: 36px;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 9px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.menu-icon:hover {
+  border-color: #2eaf7d;
+  background: rgba(15, 23, 42, 0.9);
+  transform: scale(1.05);
+}
+
+.menu-icon span {
+  width: 18px;
+  height: 2px;
+  background-color: #38bdf8;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  font-weight: 700;
+  color: #2eaf7d;
+  text-transform: uppercase;
+}
+
+/* Top Skip Button */
+.skip-intro-btn {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(46, 175, 125, 0.35);
+  border-radius: 9999px;
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+[dir="rtl"] .skip-intro-btn {
+  right: auto;
+  left: 36px;
+}
+
+.skip-intro-btn:hover {
+  background: rgba(46, 175, 125, 0.18);
+  border-color: #2eaf7d;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 175, 125, 0.25);
+}
+
+/* Central Stage Container holding all 4 layered phases */
+.central-stage-container {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.stage-layer {
+  position: absolute;
+  width: 100%;
+  max-width: 900px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+/* Stage Typography & Badges */
+.stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(12px);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stage-badge-blue {
+  background: rgba(29, 104, 189, 0.18);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #93c5fd;
+}
+
+.stage-badge-emerald {
+  background: rgba(46, 175, 125, 0.18);
+  border: 1px solid rgba(46, 175, 125, 0.35);
+  color: #6ee7b7;
+}
+
+.stage-badge-cyan {
+  background: rgba(6, 182, 212, 0.18);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  color: #67e8f9;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 8vw, 6.2rem);
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.05;
+  background: linear-gradient(180deg, #ffffff 20%, #93c5fd 65%, #2eaf7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 40px rgba(29, 104, 189, 0.55));
+}
+
+.stage-subtitle-box {
+  margin-top: 22px;
+  max-width: 740px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stage-line-primary {
+  font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0;
+  line-height: 1.45;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+}
+
+.stage-line-secondary {
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  font-weight: 400;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.6;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.stage-prompt-pill {
+  margin-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #38bdf8;
+  font-size: 12px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+/* Grand Climax Stage Card */
+.grand-climax-card {
+  max-width: 660px;
+  width: 92%;
+  padding: clamp(24px, 4vw, 36px);
+  border-radius: 28px;
+  background: rgba(9, 15, 30, 0.88);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 25px 70px -15px rgba(0, 0, 0, 0.95), 0 0 60px -10px rgba(46, 175, 125, 0.3);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Scroll progress indicator at bottom */
+.scroll-progress {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  background: rgba(10, 15, 28, 0.82);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 9999px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  transition: opacity 0.35s ease;
+}
+
+.scroll-text {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.progress-track {
+  width: 130px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #1d68bd, #2eaf7d);
+  border-radius: 9999px;
+  transition: width 0.08s ease-out;
+}
+
+.section-counter {
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  color: #cbd5e1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .side-menu {
+    top: 20px;
+    left: 20px;
+  }
+  [dir="rtl"] .side-menu {
+    right: 20px;
+    left: auto;
+  }
+  .skip-intro-btn {
+    top: 20px;
+    right: 20px;
+    padding: 7px 14px;
+    font-size: 11px;
+  }
+  [dir="rtl"] .skip-intro-btn {
+    left: 20px;
+    right: auto;
+  }
+  .scroll-progress {
+    bottom: 20px;
+    padding: 6px 14px;
+    gap: 10px;
+  }
+  .progress-track {
+    width: 80px;
+  }
+}
