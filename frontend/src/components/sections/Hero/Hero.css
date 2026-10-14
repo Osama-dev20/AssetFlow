@@ -1,3 +1,4 @@
+
 /* =========================
    Hero Section
 ========================= */
@@ -14,14 +15,11 @@
   width: min(1320px, 94%);
   min-height: 520px;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 55px;
 }
-
 
 /* =========================
    Content
@@ -34,7 +32,6 @@
 
 .hero-content h1 {
   margin: 0 0 24px;
-
   color: #0f172a;
   font-size: clamp(36px, 4.4vw, 60px);
   line-height: 1.38;
@@ -48,7 +45,12 @@
   display: block;
   margin-top: 10px;
   padding-bottom: 6px;
-  background: linear-gradient(135deg, #1d68bd 0%, #1570ef 50%, #2eaf7d 100%);
+  background: linear-gradient(
+    135deg,
+    #1d68bd 0%,
+    #1570ef 50%,
+    #2eaf7d 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.35;
@@ -57,15 +59,13 @@
 .hero-content p {
   max-width: 520px;
   margin: 0 0 36px;
-
   color: #475569;
   font-size: 18px;
   line-height: 1.75;
 }
 
-
 /* =========================
-   Buttons - Smooth Pill Edges & Logo Gradient Animation
+   Buttons
 ========================= */
 
 .hero-buttons {
@@ -81,26 +81,28 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-
   min-height: 52px;
   padding: 0 30px;
-
-  border-radius: 9999px; /* Ultra-smooth rounded pill shape */
+  border-radius: 9999px;
   text-decoration: none;
   white-space: nowrap !important;
-
   font-size: 15.5px;
   font-weight: 600;
-
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
 
-/* Primary Button: Brand Logo Gradient + Shimmer Light Sweep */
+/* Primary Button */
+
 .hero-primary-btn {
-  background: linear-gradient(135deg, #1d68bd 0%, #1570ef 48%, #2eaf7d 100%);
+  background: linear-gradient(
+    135deg,
+    #1d68bd 0%,
+    #1570ef 48%,
+    #2eaf7d 100%
+  );
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow:
@@ -108,7 +110,6 @@
     0 2px 8px rgba(46, 175, 125, 0.2);
 }
 
-/* Shimmer Sweep Animation on Hover */
 .hero-primary-btn::after {
   content: "";
   position: absolute;
@@ -156,8 +157,8 @@
   transform: translateY(0) scale(0.98);
 }
 
+/* Secondary Button */
 
-/* Secondary Button: Smooth Pill with Subtle Brand Border */
 .hero-secondary-btn {
   background-color: #ffffff;
   color: #1e293b;
@@ -177,10 +178,9 @@
   transform: translateY(0) scale(0.98);
 }
 
-
-/* =========================================
-   Hero Image: 3D Mouse Parallax & Static Idle
-========================================= */
+/* =========================
+   Hero Image
+========================= */
 
 .hero-image-container {
   flex: 1.35;
@@ -191,7 +191,6 @@
   justify-content: center;
 }
 
-/* Ambient glow inspired by login page */
 .hero-image-ambient-glow {
   position: absolute;
   inset: -15px;
@@ -207,27 +206,21 @@
   z-index: 0;
 }
 
-/* 3D Card Wrapper: Tracks mouse, does NOT float up and down */
 .hero-image-wrapper {
   position: relative;
   z-index: 1;
   width: 100%;
   height: auto;
-
   overflow: hidden;
   border-radius: 20px;
-
   background-color: #ffffff;
   border: 1px solid rgba(226, 232, 240, 0.95);
-
   box-shadow:
     0 22px 50px -10px rgba(15, 23, 42, 0.14),
     0 10px 25px -8px rgba(29, 104, 189, 0.12);
-
   transition:
     transform 0.16s ease-out,
     box-shadow 0.3s ease;
-
   transform-style: preserve-3d;
   will-change: transform;
   cursor: pointer;
@@ -239,7 +232,6 @@
     0 18px 36px -10px rgba(29, 104, 189, 0.25);
 }
 
-/* Specular reflection sheen following cursor */
 .hero-image-sheen {
   position: absolute;
   inset: 0;
@@ -262,13 +254,11 @@
   transition: transform 0.4s ease;
 }
 
-
 /* =========================
    Tablet
 ========================= */
 
 @media (max-width: 900px) {
-
   .hero {
     padding: 55px 0 65px;
   }
@@ -292,15 +282,13 @@
   }
 }
 
-
 /* =========================
    Mobile
 ========================= */
 
 @media (max-width: 768px) {
-
   .hero {
-    padding: 40px 0 50px;
+    padding: 100px 0 50px;
   }
 
   .hero-container {
