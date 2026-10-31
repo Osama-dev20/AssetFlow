@@ -1,116 +1,123 @@
-# AssetFlow — منصة إدارة الأصول والصيانة الذكية (React + TypeScript)
+Core Architectural Modules & Functional Interfaces
+1. Public Landing Page
+Announcement Ticker: Dynamic, moving ticker highlighting major system updates and release notes.
 
-منظومة متكاملة لإدارة أصول المؤسسات والمرافق الحيوية (محطات المياه، المستشفيات، والمجمعات الصناعية) مع ربط الأصول بالخدمات الحرجة وحساب أولويات الصيانة بطريقة قابلة للتفسير (Explainable Priority).
+Navigation Mega Menu: Structured multi-column dropdown designed for seamless exploration of platform capabilities.
 
----
+Interactive Hero Section: High-fidelity dashboard interface mockup demonstrating live operational data.
 
-## 🚀 تشغيل المشروع محلياً
+Priority Formula Calculator: Interactive simulation tool allowing visitors to adjust weighting sliders and instantly observe dynamic priority score recalibrations.
 
-المشروع مبني وجاهز ومثبت بالكامل على القرص `E:\AssetFlow-design-1`:
+Critical Sector Showcase: Dedicated architectural breakdowns for water utilities, hospitals, and heavy industrial facilities.
 
-```bash
-# الانتقال للمجلد
-cd E:\AssetFlow-design-1
+2. Authentication & Demo Personas
+Quick Access Portal: One-click role impersonation allowing instant login as an Organization Administrator (Tariq Nabulsi) or Senior Mechanical Technician (Ahmad Khalil).
 
-# تشغيل بيئة التطوير السريعة (Vite)
-npm run dev
+Secure Recovery Flow: Streamlined password recovery mechanism with automated confirmation feedback.
 
-# بناء النسخة الإنتاجية
-npm run build
-```
+Multi-Step Onboarding: Two-phase corporate registration workflow (facility profile followed by supervisor credentials) enhanced with celebratory visual feedback.
 
-- رابط الخادم المحلي: **[http://localhost:3000/](http://localhost:3000/)**
-- رابط الشبكة المحلية (للأجهزة اللوحية والموبايل): **http://10.10.0.95:3000/**
+3. Executive Dashboard
+Critical Service Banner: Real-time emergency alert banner tracking compromised vital services with direct deep-linking to active work orders.
 
----
+Key Performance Indicators (KPIs): Core metric cards measuring operational assets, stable services, open work orders, and preventive maintenance compliance via dynamic progress bars.
 
-## 💎 المميزات المنفذة والواجهات التفاعلية
+Attention Matrix: Prioritized degradation queue visualized through conic gradient progress rings.
 
-### 1. الصفحة الرئيسية العامة (Landing Page)
-- شريط إعلاني متحرك يبرز الميزات الجديدة.
-- قائمة علوية تفاعلية مع **Mega Menu** لشرح أقسام المنصة.
-- قسم Hero تفاعلي يحتوي على نموذج حي (Mockup) للوحة القيادة.
-- **حاسبة تفاعلية لمعادلة الأولوية (Priority Formula Calculator)** تمكّن الزائر من تحريك أشرطة التمرير ومشاهدة تغيّر الأولوية تلقائيًا.
-- استعراض القطاعات الحيوية: محطات المياه، المستشفيات، والمجمعات الصناعية.
-- أسئلة شائعة (FAQ Accordion) ونداءات تفاعلية لبدء التجربة.
+Live Pulse Indicators: Continuous heartbeat telemetry monitoring critical infrastructure health alongside geographical asset mapping.
 
-### 2. بوابات الدخول والتسجيل السريع (Auth & Demo Personas)
-- تسجيل الدخول مع خيار **"الدخول السريع"** بنقرة واحدة كمدير منظمة (طارق النابلسي) أو فني أول ميكانيك (أحمد خليل).
-- استعادة كلمة المرور مع شاشة تأكيد الإرسال.
-- تسجيل حساب جديد في خطوتين (بيانات المنشأة ثم بيانات المشرف) مع تأثير احتفالي (Confetti).
+4. Intelligent Asset Registry
+Multi-Parameter Search: Instantaneous filtering by asset identification code, nomenclature, or facility designation.
 
-### 3. لوحة القيادة الذكية (Executive Dashboard)
-- بانر تنبيهي عاجل للخدمات الحرجة المعرّضة مع زر للانتقال المباشر لأمر العمل.
-- بطاقات المؤشرات الرئيسية الأربعة (الأصول العاملة، الخدمات المستقرة، أوامر العمل المفتوحة، والصيانة الوقائية) مع أشرطة تقدم لونية.
-- قسم **"يحتاج انتباهك"** مرتب تنازليًا بحلقات دائرية معبأة بالألوان التدرجية Conic Gradients للأولوية (86، 58، إلخ).
-- صحة الخدمات الحرجة مع مؤشرات نبض حية (Pulse Indicators).
-- توزيع الأصول جغرافياً حسب المنشأة.
-- قائمة مهام إعداد المنشأة التفاعلية (Setup Checklist) المرتبطة بمؤشر الإنجاز في الشريط الجانبي.
+Advanced State Filtering: Granular sorting capabilities based on operational status (active, under maintenance, decommissioned) and physical location.
 
-### 4. سجل الأصول الذكي (Asset Registry)
-- بحث فوري بالكود، الاسم، أو المنشأة.
-- تصفية متقدمة حسب الحالة التشغيلية (يعمل، صيانة، متوقف) وحسب الموقع.
-- التبديل السلس بين **عرض الجدول (Table)** و**عرض البطاقات (Grid)**.
-- **درج إضافة أصل جديد (Add Asset Drawer)** من 3 خطوات مع التحقق وربط الخدمة الحرجة وتحديد الأصل البديل المناوب.
+Dual View Modes: Seamless toggling between structured tabular layouts and high-density card grids.
 
-### 5. تفاصيل الأصل والمعدات (Asset Detail)
-- بطاقة علوية بالمواصفات الفنية ومؤشرات الموثوقية (MTBF و MTTR وساعات التشغيل التراكمية).
-- تبويبات تفصيلية:
-  - **نظرة عامة**: تفاصيل المحرك، السعة، والضمان، والخدمة الحرجة المرتبطة.
-  - **سجل الصيانة والأعطال**: جدول زمني لكافة أوامر العمل السابقة.
-  - **قطع الغيار والمخزون**: جدول القطع المتوافقة والكميات المتبقية مع أزرار طلب التوريد.
-- **نافذة منبثقة لطباعة ملصق كود QR** للمعدات الميدانية.
+Multi-Step Provisioning Drawer: Guided 3-step asset registration wizard featuring real-time validation, critical service mapping, and standby asset assignment.
 
-### 6. أوامر العمل وكانبان الأولوية (Work Orders & Kanban)
-- لوحة كانبان تفاعلية بـ 4 مراحل (جديدة، قيد التنفيذ، بانتظار قطع، ومكتملة) مع أزرار لنقل البطاقات فورياً.
-- **نافذة تفسير الأولوية (Explainable Priority Modal)** التي تفتح عند النقر على أي أولوية وتشرح بالتفصيل:
-  - أثر الخدمة الحرجة (+40)
-  - غياب البديل (+25)
-  - التأخر عن وقت الاستجابة (+12)
-  - تكرار الأعطال السابقة (+9)
-- درج إنشاء وتوجيه أوامر العمل للفنيين.
+5. Asset Detail & Engineering Specifications
+Technical Header Card: High-level specification summary featuring core reliability metrics including Mean Time Between Failures (MTBF), Mean Time to Repair (MTTR), and cumulative operating hours.
 
-### 7. مصفوفة الخدمات الحرجة ومحاكي الأعطال (Failure Simulator)
-- خريطة تفاعلية للخدمات الحيوية (مياه الشرب، الأكسجين الطبي، الطاقة الاحتياطية، ومكافحة الحريق) مع تقدير تكلفة التعطل بالساعة.
-- **محاكي سيناريوهات الطوارئ (Failure Simulator)**: اختر أي مضخة أو مولد واضغط "تشغيل المحاكاة" لحساب أثر العطل وسرعة انتشار التوقف في المنشأة.
+Tabular Modular Analytics:
 
-### 8. الصيانة الوقائية (Preventive Maintenance)
-- جدول زمني للخطط الدورية (أسبوعية، شهرية، ربع سنوية).
-- قوائم تحقق تفاعلية (Interactive Checklists) تمكّن الفني من إتمام بنود الفحص خطوة بخطوة مع تحديث نسبة الإنجاز تلقائياً.
+Overview: Motor specifications, capacity metrics, warranty status, and associated critical services.
 
-### 9. المواقع والمنشآت (Sites & Facilities)
-- بطاقات المرافق مع توزيع الأصول وحالة كل منشأة.
-- نموذج منبثق لإضافة موقع أو محطة جديدة.
+Maintenance History: Chronological audit trail of all prior work orders.
 
-### 10. الفريق والصلاحيات (Team & Roles)
-- بطاقات المهندسين والفنيين مع التخصصات وحالات الاتصال.
-- مصفوفة صلاحيات مفصلة لكل دور (Admin, Operations, Technician, Reporter).
-- نافذة دعوة عضو فريق جديد مع التحقق وتوليد الرمز.
+Spare Parts & Inventory: Compatible component inventory tracking with direct requisition workflows.
 
-### 11. التحليلات والتقارير (Reports & Analytics)
-- التبديل بين آخر 90 يوم أو سنة كاملة.
-- نسب الجاهزية التشغيلية ومعدلات الالتزام باتفاقية مستوى الخدمة (SLA Compliance 94%).
-- أزرار تصدير تقارير CSV و PDF.
+Field QR Code Generator: Dedicated utility modal for instant printing and deployment of field asset identification labels.
 
-### 12. الإعدادات ونموذج الأولوية (Settings)
-- **منزلقات التحكم بأوزان الأولوية (Priority Weights Sliders)** مع معاينة مباشرة للتأثير على المعادلة.
-- تخصيص عتبات الاستجابة SLA بالدقائق والساعات.
-- بيانات المنشأة والعملة وتفضيلات الإشعارات.
+6. Work Orders & Priority Kanban Board
+Interactive Kanban Workflow: Four-stage operational board (New, In Progress, Awaiting Parts, Completed) supporting instant drag-and-drop status updates.
 
-### 13. سجل التدقيق والمراجعة (Audit Log)
-- سجل زمني دقيق لكل عملية وتعديل مع تصفية حسب الفئة.
+Explainable Priority Modal: Transparent algorithmic breakdown triggered upon selecting any priority score, detailing quantitative impact factors:
 
-### 14. لوحة الأوامر السريعة (Command Palette)
-- اضغط **`Ctrl + K`** في أي مكان للبحث والوصول الفوري لأي أصل، أو أمر عمل، أو الانتقال بين الصفحات.
+Critical service disruption impact (+40)
 
----
+Absence of redundant backup (+25)
 
-## 🛠 التقنيات المستخدمة
-- **React 19**
-- **TypeScript**
-- **Vite**
-- **Tailwind CSS v4** (@tailwindcss/vite)
-- **Lucide Icons**
-- **Canvas Confetti**
-- **Google Fonts** ('IBM Plex Sans Arabic' & 'IBM Plex Mono')
-- **Local Storage State Persistence**
+Service Level Agreement (SLA) breach delay (+12)
+
+Historical failure recurrence frequency (+9)
+
+Work Order Dispatch Drawer: Rapid creation and technician assignment interface.
+
+7. Critical Services Matrix & Failure Simulator
+Interactive Vital Mapping: Geographical and topological layout of critical services (potable water, medical oxygen, emergency power, fire suppression) with real-time hourly downtime cost estimation.
+
+Emergency Scenario Simulator: Interactive stress-testing tool enabling operators to simulate component failures (pumps, generators) to calculate operational impact propagation speeds across the facility.
+
+8. Preventive Maintenance Management
+Recurring Schedule Matrix: Structured cyclical maintenance timelines (weekly, monthly, quarterly).
+
+Interactive Execution Checklists: Step-by-step digital verification lists guiding technicians through systematic inspection protocols with automated progress tracking.
+
+9. Sites & Facilities Management
+Facility Topology Cards: Comprehensive overview of geographical sites, asset distributions, and individual facility operational statuses.
+
+Dynamic Provisioning Modal: Streamlined dialog for commissioning new operational sites or sub-stations.
+
+10. Team Roles & Access Control
+Personnel Directory: Engineer and technician profiles detailing institutional specializations and live connectivity states.
+
+Role-Based Access Control (RBAC): Granular permission matrix tailored for Administrators, Operations Managers, Technicians, and Reporters.
+
+Invitation Protocol: Secure member onboarding workflow featuring automated credential verification and token generation.
+
+11. Advanced Analytics & Reporting
+Temporal Flex-Reporting: Instantaneous switching between 90-day rolling windows and full annual compliance cycles.
+
+SLA Compliance Tracking: Operational readiness scoring and SLA adherence analytics (maintaining a 94% benchmark).
+
+Enterprise Export Suite: One-click generation and export of standardized CSV and PDF compliance reports.
+
+12. System Settings & Priority Customization
+Dynamic Weight Sliders: Real-time configuration parameters allowing administrators to tune priority scoring algorithms with instant interface previews.
+
+SLA Threshold Configuration: Customizable minute and hour-based response thresholds.
+
+Localization & Preferences: Facility profile management, currency selectors, and notification routing rules.
+
+13. System Audit Log
+Chronological Traceability: Tamper-evident, timestamped event log tracking every system modification and administrative action, filterable by functional category.
+
+14. Command Palette Utility
+Global Navigation: Universal keyboard shortcut (Ctrl + K) enabling rapid, fuzzy-searched access to any asset, work order, or platform module from anywhere in the system.
+
+Enterprise Technology Stack
+Core Framework: React 19
+
+Type Safety: TypeScript
+
+Build System: Vite
+
+Styling Architecture: Tailwind CSS v4 (@tailwindcss/vite)
+
+Iconography: Lucide Icons
+
+Visual Effects: Canvas Confetti
+
+Typography: Google Fonts (IBM Plex Sans Arabic & IBM Plex Mono)
+
+Persistence Layer: Local Storage State Persistence
