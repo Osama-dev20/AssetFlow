@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { apiRequest } from '../services/api';
 import { 
   AppPage, Asset, WorkOrder, CriticalService, PreventivePlan, 
   Site, TeamMember, PriorityWeights, AuditLogItem, AssetStatus, 
@@ -109,6 +110,77 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentPage, setCurrentPage] = useState<AppPage>('landing');
   const [selectedAssetId, setSelectedAssetId] = useState<string | null>('ast-2');
   const [currentUser, setCurrentUser] = useState<TeamMember>(initialTeamMembers[0]);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
+
+  useEffect(() => {
+  let isMounted = true;
+
+  const restoreSession = async () => {
+    try {
+      const user = await apiRequest('/api/me') as {
+        id: number | string;
+        name: string;
+        email: string;
+        role: string;
+        status: string;
+      };
+
+      if (!isMounted) return;
+
+      const roleMap: Record<string, TeamMember['role']> = {
+        maintenance_manager: 'admin',
+        technician: 'technician',
+      };
+
+      const mappedRole = roleMap[user.role];
+
+      if (!mappedRole) return;
+
+      const mappedUser: TeamMember = {
+        id: String(user.id),
+        name: user.name,
+        role: mappedRole,
+        roleArabic: mappedRole === 'admin' ? 'مدير المنظمة' : 'فني صيانة',
+        roleEn: mappedRole === 'admin' ? 'Maintenance Manager' : 'Technician',
+        email: user.email,
+        phone: '',
+        initials: user.name
+          .trim()
+          .split(/\s+/)
+          .map((part) => part[0])
+          .join('')
+          .slice(0, 2)
+          .toUpperCase(),
+        avatarGradient:
+          mappedRole === 'admin'
+            ? 'from-blue-600 to-teal-600'
+            : 'from-emerald-600 to-teal-500',
+        activeOrdersCount: 0,
+        specialty: '',
+        status: user.status === 'active' ? 'active' : 'offline',
+      };
+
+      setCurrentUser(mappedUser);
+
+      setCurrentPage(
+        mappedRole === 'technician' ? 'tech-portal' : 'dashboard'
+      );
+        } catch {
+      // لا توجد جلسة صالحة، ابقَ في الصفحة الرئيسية.
+    } finally {
+      if (isMounted) {
+        setIsAuthChecking(false);
+      }
+    }
+  };
+
+  void restoreSession();
+
+  return () => {
+    isMounted = false;
+  };
+}, []);
+
   const [assets, setAssets] = useState<Asset[]>(() => {
     try {
       const saved = localStorage.getItem('af_assets_v3');
@@ -1064,7 +1136,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setIsOffline
       }}
     >
-      {children}
+
+      {isAuthChecking ? (
+  <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
+    <div className="text-center">
+      <div className="animate-spin rounded-full h-10 w-10 border-4 border-teal-500 border-t-transparent mx-auto mb-4" />
+      <p>جارٍ التحقق من جلسة الدخول...</p>
+    </div>
+  </div>
+) : (
+  children
+)}
+
     </AppContext.Provider>
   );
 };

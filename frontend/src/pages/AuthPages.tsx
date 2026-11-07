@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { apiRequest, initializeCsrf } from '../services/api';
+import type { TeamMember } from '../types';
 import { useApp } from '../context/AppContext';
 import { 
   ArrowLeft, CheckCircle2, Mail, Lock, Building, 
@@ -29,11 +31,11 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
   // Form states
   const [selectedDemoRole, setSelectedDemoRole] = useState<'admin' | 'technician' | 'reporter'>('admin');
   const [signupRole, setSignupRole] = useState<'admin' | 'technician' | 'reporter'>('admin');
-  const [email, setEmail] = useState('admin@assetflow.io');
-  const [password, setPassword] = useState('demo-pass-2026');
+  const [email, setEmail] = useState('test@example.com');
+  const [password, setPassword] = useState('password');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [otpCode, setOtpCode] = useState('');
   const [otpError, setOtpError] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -43,19 +45,97 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
   const [fullName, setFullName] = useState(isEn ? 'Tariq Al-Nabulsi' : 'طارق النابلسي');
   const [phone, setPhone] = useState('+970 599 111 222');
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleLoginSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (isSubmitting) return;
+
+  setIsSubmitting(true);
+
+  try {
+    await initializeCsrf();
+
+    await apiRequest('/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+
+    const user = await apiRequest('/api/me') as {
+      id: number | string;
+      name: string;
+      email: string;
+      role: string;
+      status: string;
+    };
+
+    const roleMap: Record<string, TeamMember['role']> = {
+      maintenance_manager: 'admin',
+      technician: 'technician',
+    };
+
+    const mappedRole = roleMap[user.role];
+
+    if (!mappedRole) {
+      throw new Error(
+        isEn
+          ? `Unsupported account role: ${user.role}`
+          : `نوع الحساب غير مدعوم حالياً: ${user.role}`
+      );
+    }
+
+    const mappedUser: TeamMember = {
+      id: String(user.id),
+      name: user.name,
+      role: mappedRole,
+      roleArabic: mappedRole === 'admin' ? 'مدير المنظمة' : 'فني صيانة',
+      roleEn: mappedRole === 'admin' ? 'Maintenance Manager' : 'Technician',
+      email: user.email,
+      phone: '',
+      initials: user.name
+        .trim()
+        .split(/\s+/)
+        .map((part) => part[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase(),
+      avatarGradient:
+        mappedRole === 'admin'
+          ? 'from-blue-600 to-teal-600'
+          : 'from-emerald-600 to-teal-500',
+      activeOrdersCount: 0,
+      specialty: '',
+      status: user.status === 'active' ? 'active' : 'offline',
+    };
+
+    setCurrentUser(mappedUser);
+    setSelectedDemoRole(mappedRole);
+
+    setCurrentPage(
+      mappedRole === 'technician' ? 'tech-portal' : 'dashboard'
+    );
+
     soundManager.playSuccess();
     triggerCelebration();
 
-    if (email.toLowerCase().includes('tech') || selectedDemoRole === 'technician') {
-      switchRole('technician');
-    } else if (email.toLowerCase().includes('report') || selectedDemoRole === 'reporter') {
-      switchRole('reporter');
-    } else {
-      switchRole('admin');
-    }
-  };
+    showToast(
+      isEn ? 'Login successful' : 'تم تسجيل الدخول بنجاح',
+      isEn ? `Welcome, ${user.name}` : `مرحباً بك، ${user.name}`,
+      'success'
+    );
+  } catch (error) {
+    showToast(
+      isEn ? 'Login failed' : 'فشل تسجيل الدخول',
+      error instanceof Error
+        ? error.message
+        : isEn
+          ? 'Please check your credentials and try again.'
+          : 'تحقق من البريد وكلمة المرور وحاول مجدداً.',
+      'danger'
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleSocialLogin = (provider: 'Google' | 'Microsoft') => {
     soundManager.playSuccess();
@@ -211,8 +291,8 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
                     onClick={() => {
                       soundManager.playCardSwitch();
                       setSelectedDemoRole('admin');
-                      setEmail('admin@assetflow.io');
-                      setPassword('demo-pass-2026');
+                      setEmail('test@example.com');
+                      setPassword('password');
                     }}
                     className={`flex-1 min-w-[90px] h-10 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                       selectedDemoRole === 'admin'
@@ -228,8 +308,8 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
                     onClick={() => {
                       soundManager.playCardSwitch();
                       setSelectedDemoRole('technician');
-                      setEmail('tech@assetflow.io');
-                      setPassword('demo-pass-2026');
+                      setEmail('technician@example.com');
+                      setPassword('password');
                     }}
                     className={`flex-1 min-w-[90px] h-10 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                       selectedDemoRole === 'technician'
@@ -242,19 +322,12 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
 
                   <button
                     type="button"
-                    onClick={() => {
-                      soundManager.playCardSwitch();
-                      setSelectedDemoRole('reporter');
-                      setEmail('reporter@assetflow.io');
-                      setPassword('demo-pass-2026');
-                    }}
-                    className={`flex-1 min-w-[90px] h-10 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                      selectedDemoRole === 'reporter'
-                        ? 'bg-blue-600/25 text-white border border-blue-500 shadow-sm'
-                        : 'bg-[#101A2E] text-[#C3CEDF] border border-[#26324A] hover:bg-[#16233B]'
-                    }`}
+                    disabled
+                    aria-disabled="true"
+                    title={isEn ? 'Not available yet' : 'غير متاح حالياً'}
+                    className="flex-1 min-w-[90px] h-10 px-3 rounded-xl text-xs sm:text-sm font-semibold bg-[#101A2E] text-[#C3CEDF] border border-[#26324A] opacity-50 cursor-not-allowed"
                   >
-                    {isEn ? 'Reporter' : 'مُبلِّغ'}
+                    {isEn ? 'Reporter · Unavailable' : 'مُبلِّغ · غير متاح'}
                   </button>
                 </div>
               </div>
@@ -343,11 +416,20 @@ export const AuthPages: React.FC<{ initialMode?: 'login' | 'signup' }> = ({ init
               </div>
 
               {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full h-13 rounded-xl bg-gradient-to-r from-blue-600 via-blue-500 to-teal-500 text-white font-bold text-base hover:brightness-110 shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
-              >
-                <span>{isEn ? 'Sign In' : 'تسجيل الدخول'}</span>
+               <button
+                 type="submit"
+                 disabled={isSubmitting}
+                 className="w-full h-13 rounded-xl bg-gradient-to-r from-blue-600 via-blue-500 to-teal-500 text-white font-bold text-base hover:brightness-110 shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer mt-1"
+               >
+                <span>
+                  {isSubmitting
+                    ? isEn
+                      ? 'Signing In...'
+                      : 'جارٍ تسجيل الدخول...'
+                    : isEn
+                      ? 'Sign In'
+                      : 'تسجيل الدخول'}
+                </span>
                 {isEn ? <ArrowRight size={17} /> : <ArrowLeft size={17} />}
               </button>
 
