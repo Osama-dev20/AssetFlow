@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiRequest } from '../services/api';
 import { useApp } from '../context/AppContext';
 import { 
   User, Mail, Phone, ShieldCheck, Globe, 
@@ -39,15 +40,32 @@ export const ProfilePage: React.FC = () => {
     setTimeout(() => setIsSaved(false), 2500);
   };
 
-  const handleLogout = () => {
-    soundManager.playButtonClick();
-    setCurrentPage('login');
-    showToast(
-      isEn ? 'Logged out successfully' : 'تم تسجيل الخروج بنجاح',
-      isEn ? 'Session ended safely' : 'تم إنهاء الجلسة بأمان',
-      'info'
-    );
-  };
+  const handleLogout = async () => {
+    soundManager.playButtonClick();  
+
+    try {
+      await apiRequest('/logout', {
+        method: 'POST',
+      });  
+
+      sessionStorage.removeItem('assetflow_page');
+      setCurrentPage('landing'); 
+
+      showToast(
+        isEn ? 'Logged out successfully' : 'تم تسجيل الخروج بنجاح',
+        isEn ? 'Session ended safely' : 'تم إنهاء الجلسة بأمان',
+        'info'
+      );
+    } catch (error) {
+      console.error('Logout failed:', error);  
+
+      showToast(
+        isEn ? 'Logout failed' : 'فشل تسجيل الخروج',
+        isEn ? 'Please try again' : 'يرجى المحاولة مرة أخرى',
+        'error'
+      );
+    }
+   };
 
   return (
     <div className={`p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto space-y-6 ${isEn ? 'text-left' : 'text-right'}`}>

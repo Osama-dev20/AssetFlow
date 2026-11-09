@@ -107,7 +107,21 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentPage, setCurrentPage] = useState<AppPage>('landing');
+  
+  const [currentPage, setCurrentPage] = useState<AppPage>(() => {
+  return (sessionStorage.getItem('assetflow_page') as AppPage) || 'landing';
+  });
+  
+  // حفظ الصفحة الحالية
+useEffect(() => {
+  if (currentPage === 'landing' || currentPage === 'login') {
+    sessionStorage.removeItem('assetflow_page');
+  } else {
+    sessionStorage.setItem('assetflow_page', currentPage);
+  }
+}, [currentPage]);
+
+  
   const [selectedAssetId, setSelectedAssetId] = useState<string | null>('ast-2');
   const [currentUser, setCurrentUser] = useState<TeamMember>(initialTeamMembers[0]);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
@@ -115,64 +129,69 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
   let isMounted = true;
 
-  const restoreSession = async () => {
-    try {
-      const user = await apiRequest('/api/me') as {
-        id: number | string;
-        name: string;
-        email: string;
-        role: string;
-        status: string;
-      };
+const restoreSession = async () => {
+  try {
+    const user = await apiRequest('/api/me') as {
+      id: number | string;
+      name: string;
+      email: string;
+      role: string;
+      status: string;
+    };
 
-      if (!isMounted) return;
+    if (!isMounted) return;
 
-      const roleMap: Record<string, TeamMember['role']> = {
-        maintenance_manager: 'admin',
-        technician: 'technician',
-      };
+    const roleMap: Record<string, TeamMember['role']> = {
+      maintenance_manager: 'admin',
+      technician: 'technician',
+    };
 
-      const mappedRole = roleMap[user.role];
+    const mappedRole = roleMap[user.role];
 
-      if (!mappedRole) return;
+    if (!mappedRole) {
+  sessionStorage.removeItem('assetflow_page');
+  setCurrentPage('landing');
+  return;
+}
 
-      const mappedUser: TeamMember = {
-        id: String(user.id),
-        name: user.name,
-        role: mappedRole,
-        roleArabic: mappedRole === 'admin' ? 'مدير المنظمة' : 'فني صيانة',
-        roleEn: mappedRole === 'admin' ? 'Maintenance Manager' : 'Technician',
-        email: user.email,
-        phone: '',
-        initials: user.name
-          .trim()
-          .split(/\s+/)
-          .map((part) => part[0])
-          .join('')
-          .slice(0, 2)
-          .toUpperCase(),
-        avatarGradient:
-          mappedRole === 'admin'
-            ? 'from-blue-600 to-teal-600'
-            : 'from-emerald-600 to-teal-500',
-        activeOrdersCount: 0,
-        specialty: '',
-        status: user.status === 'active' ? 'active' : 'offline',
-      };
+    const mappedUser: TeamMember = {
+      id: String(user.id),
+      name: user.name,
+      role: mappedRole,
+      roleArabic: mappedRole === 'admin' ? 'مدير المنظمة' : 'فني صيانة',
+      roleEn: mappedRole === 'admin' ? 'Maintenance Manager' : 'Technician',
+      email: user.email,
+      phone: '',
+      initials: user.name
+        .trim()
+        .split(/\s+/)
+        .map((part) => part[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase(),
+      avatarGradient:
+        mappedRole === 'admin'
+          ? 'from-blue-600 to-teal-600'
+          : 'from-emerald-600 to-teal-500',
+      activeOrdersCount: 0,
+      specialty: '',
+      status: user.status === 'active' ? 'active' : 'offline',
+    };
 
-      setCurrentUser(mappedUser);
+    setCurrentUser(mappedUser);
 
-      setCurrentPage(
-        mappedRole === 'technician' ? 'tech-portal' : 'dashboard'
-      );
-        } catch {
-      // لا توجد جلسة صالحة، ابقَ في الصفحة الرئيسية.
-    } finally {
-      if (isMounted) {
-        setIsAuthChecking(false);
-      }
+    // لا نغيّر الصفحة تلقائيًا عند استعادة الجلسة.
+
+  } catch {
+    // لا توجد جلسة صالحة، ابقَ في الصفحة الرئيسية.
+      sessionStorage.removeItem('assetflow_page');
+      setCurrentPage('landing');
+  } finally {
+    if (isMounted) {
+      setIsAuthChecking(false);
     }
-  };
+  }
+};
 
   void restoreSession();
 
