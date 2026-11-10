@@ -137,29 +137,12 @@ const handleLoginSubmit = async (e: React.FormEvent) => {
   }
 };
 
-  const handleSocialLogin = (provider: 'Google' | 'Microsoft') => {
-    soundManager.playSuccess();
-    triggerCelebration();
-    switchRole('admin');
-    showToast(
-      isEn ? `Signed in via ${provider}` : `تم تسجيل الدخول المباشر عبر ${provider}`, 
-      isEn ? `Welcome Tariq Al-Nabulsi` : `مرحباً بك طارق النابلسي`, 
-      'success'
-    );
+  const handleSocialLogin = (_provider: 'Google' | 'Microsoft') => {
+    showToast('تسجيل الدخول الاجتماعي غير متاح', 'لم يتم توفير OAuth في Backend', 'info');
   };
 
-  const handleQuickLogin = (memberId: string) => {
-    soundManager.playSuccess();
-    const member = teamMembers.find((m) => m.id === memberId) || teamMembers[0];
-    setCurrentUser(member);
-    showToast(
-      isEn ? 'Quick Login Successful' : 'تم تسجيل الدخول السريع', 
-      isEn ? `Active Account: ${member.nameEn || member.name} (${member.roleEn || member.role})` : `الحساب النشط: ${member.name} (${member.roleArabic})`, 
-      'success'
-    );
-    if (member.role === 'technician') setCurrentPage('tech-portal');
-    else if (member.role === 'reporter') setCurrentPage('issues-new');
-    else setCurrentPage('dashboard');
+  const handleQuickLogin = (_memberId: string) => {
+    showToast('الدخول التجريبي غير متاح', 'استخدم حساب Laravel الحقيقي', 'info');
   };
 
   const handleForgotSubmit = (e: React.FormEvent) => {
@@ -788,10 +771,8 @@ const handleLoginSubmit = async (e: React.FormEvent) => {
             </p>
             <button
               onClick={() => {
-                const admin = teamMembers[0];
-                setCurrentUser(admin);
-                setCurrentPage('dashboard');
-                showToast(isEn ? 'Welcome!' : 'مرحباً بك!', isEn ? 'Signed in successfully' : 'تم الدخول إلى المنظومة بنجاح', 'success');
+                setCurrentPage('login');
+                showToast('يرجى تسجيل الدخول', 'إعادة تعيين كلمة المرور غير متصلة بالخادم بعد', 'info');
               }}
               className="w-full h-11 rounded-xl bg-gradient-to-r from-blue-600 to-teal-500 text-white font-bold text-sm hover:brightness-110 shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
             >

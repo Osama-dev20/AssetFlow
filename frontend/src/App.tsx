@@ -29,7 +29,7 @@ import { ProfilePage } from './pages/ProfilePage';
 import { AccessErrorModal } from './components/AccessErrorModal';
 
 export const AppContent: React.FC = () => {
-  const { currentPage, language } = useApp();
+  const { currentPage, language, isAuthenticated } = useApp();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNewOrderOpen, setIsNewOrderOpen] = useState(false);
   const [isAddAssetOpen, setIsAddAssetOpen] = useState(false);
@@ -42,7 +42,7 @@ export const AppContent: React.FC = () => {
   }, [currentPage]);
 
   // If on Landing Page or Auth Pages, render standalone without app shell
-  if (currentPage === 'landing') {
+  if (currentPage === 'landing' || (!isAuthenticated && !['login', 'signup'].includes(currentPage))) {
     return (
       <>
         <LandingPage onOpenReportFault={() => setIsNewOrderOpen(true)} />

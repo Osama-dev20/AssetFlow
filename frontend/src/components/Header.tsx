@@ -6,6 +6,7 @@ import {
   Volume2, VolumeX, User, Shield, AlertOctagon
 } from 'lucide-react';
 import { soundManager } from '../lib/soundEffects';
+import { apiRequest } from '../services/api';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -15,8 +16,6 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
   const { 
     setIsCommandPaletteOpen, 
     currentUser, 
-    setCurrentUser, 
-    teamMembers, 
     setCurrentPage, 
     showToast,
     workOrders,
@@ -428,52 +427,18 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
                 </div>
               </div>
 
-              {/* Demo Persona Switcher */}
-              <div className="pt-2 border-t border-[#1E2A44]">
-                <span className="text-[11px] font-semibold text-[#8696AE] px-1 block mb-1">
-                  {language === 'en' ? 'Specific Member Switch:' : 'التبديل إلى عضو محدد:'}
-                </span>
-                <div className="space-y-1 max-h-36 overflow-y-auto">
-                  {teamMembers.map((member) => (
-                    <button
-                      key={member.id}
-                      onClick={() => {
-                        setCurrentUser(member);
-                        setIsUserMenuOpen(false);
-                        showToast(
-                          language === 'en' ? `Switched to: ${member.nameEn || member.name}` : `تم التبديل إلى: ${member.name}`, 
-                          language === 'en' ? (member.roleEn || member.role) : member.roleArabic, 
-                          'info'
-                        );
-                      }}
-                      className={`w-full flex items-center justify-between p-2 rounded-xl text-xs transition-colors cursor-pointer ${
-                        currentUser.id === member.id ? 'bg-[#16213A] text-white font-semibold' : 'text-[#C3CEDF] hover:bg-[#121C33]'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className={`w-5 h-5 rounded-full bg-gradient-to-br ${member.avatarGradient} text-white text-[10px] flex items-center justify-center`}>
-                          {language === 'en' ? member.initials : member.initials}
-                        </span>
-                        <span className="truncate max-w-[100px]">{language === 'en' ? (member.nameEn || member.name) : member.name}</span>
-                      </div>
-                      <span className="text-[10px] text-[#8696AE]">
-                        {language === 'en' ? (member.roleEn || member.role) : member.roleArabic}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="border-t border-[#1E2A44] pt-2">
                 <button
-                  onClick={() => {
-                    setIsUserMenuOpen(false);
-                    setCurrentPage('landing');
-                    showToast(
-                      language === 'en' ? 'Signed out' : 'تم تسجيل الخروج', 
-                      language === 'en' ? 'Redirected to landing page' : 'تم الانتقال للصفحة الرئيسية', 
-                      'info'
-                    );
+                  onClick={async () => {
+                    try {
+                      await apiRequest('/logout', { method: 'POST' });
+                      sessionStorage.removeItem('assetflow_page');
+                      window.dispatchEvent(new Event('assetflow:logout'));
+                      setIsUserMenuOpen(false);
+                      showToast(language === 'en' ? 'Signed out' : 'تم تسجيل الخروج', '', 'success');
+                    } catch (error) {
+                      showToast(language === 'en' ? 'Logout failed' : 'تعذر تسجيل الخروج', String(error), 'danger');
+                    }
                   }}
                   className="w-full flex items-center gap-2 p-2 rounded-xl text-rose-400 hover:bg-rose-500/10 text-xs transition-colors cursor-pointer"
                 >

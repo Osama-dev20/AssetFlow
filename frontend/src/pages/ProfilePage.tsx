@@ -26,11 +26,8 @@ export const ProfilePage: React.FC = () => {
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     soundManager.playButtonClick();
-    setCurrentUser({
-      ...currentUser,
-      name: fullName,
-      phone: phoneNumber
-    });
+    showToast('تعديل الملف الشخصي غير متاح', 'لا يوجد Endpoint لتعديل الحساب الحالي في Backend', 'info');
+    return;
     setIsSaved(true);
     showToast(
       isEn ? 'Profile updated successfully' : 'تم حفظ بيانات الملف الشخصي بنجاح',
@@ -48,6 +45,7 @@ export const ProfilePage: React.FC = () => {
         method: 'POST',
       });  
 
+      window.dispatchEvent(new Event('assetflow:logout'));
       sessionStorage.removeItem('assetflow_page');
       setCurrentPage('landing'); 
 
@@ -62,7 +60,7 @@ export const ProfilePage: React.FC = () => {
       showToast(
         isEn ? 'Logout failed' : 'فشل تسجيل الخروج',
         isEn ? 'Please try again' : 'يرجى المحاولة مرة أخرى',
-        'error'
+        'danger'
       );
     }
    };

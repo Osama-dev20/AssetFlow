@@ -14,11 +14,12 @@ export const SitesPage: React.FC = () => {
   const [managerName, setManagerName] = useState('');
   const [contactPhone, setContactPhone] = useState('+970 599 ');
 
-  const handleCreateSite = (e: React.FormEvent) => {
+  const handleCreateSite = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !location) return;
 
-    addSite({
+    try {
+    await addSite({
       name,
       nameEn: name,
       type,
@@ -39,6 +40,7 @@ export const SitesPage: React.FC = () => {
     setName('');
     setLocation('');
     setIsAddSiteOpen(false);
+    } catch { /* Error is displayed by the API handler; keep form open. */ }
   };
 
   return (

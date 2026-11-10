@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { 
   AlertTriangle, CheckCircle2, ArrowRight, ArrowLeft,
@@ -28,6 +28,7 @@ export const ReportIssuePage: React.FC = () => {
   const [createdIssueId, setCreatedIssueId] = useState<string | null>(null);
   const [createdIssueNumber, setCreatedIssueNumber] = useState<number | null>(null);
 
+  useEffect(() => { if (!selectedAssetId && assets.length) setSelectedAssetId(assets[0].id); }, [assets, selectedAssetId]);
   const selectedAsset = assets.find((a) => a.id === selectedAssetId) || assets[0];
 
   const filteredAssets = assets.filter((a) => {
@@ -47,8 +48,6 @@ export const ReportIssuePage: React.FC = () => {
     setIsSubmitting(true);
     soundManager.playButtonClick();
 
-    // Simulated network delay
-    await new Promise((r) => setTimeout(r, 650));
 
     if (simulatedError === '422') {
       setIsSubmitting(false);
@@ -70,7 +69,8 @@ export const ReportIssuePage: React.FC = () => {
       return;
     }
 
-    const newIssue = createIssue({
+    try {
+    const newIssue = await createIssue({
       assetId: selectedAssetId,
       description: description.trim(),
       reporterName: currentUser.name
@@ -79,9 +79,15 @@ export const ReportIssuePage: React.FC = () => {
     setIsSubmitting(false);
     setCreatedIssueId(newIssue.id);
     setCreatedIssueNumber(newIssue.number);
+    } catch (error) {
+      setIsSubmitting(false);
+      showToast(isEn ? "Failed to submit report" : "تعذر إرسال البلاغ", String(error), "danger");
+    }
   };
 
   // SUCCESS SCREEN (MATCHING FIGMA 01-08)
+  if (!selectedAsset) return <div className="p-8 text-white">لا توجد أصول متاحة. أضف أصلًا أو تحقق من اتصال API.</div>;
+
   if (createdIssueId && createdIssueNumber) {
     return (
       <div className={`p-4 sm:p-8 max-w-2xl mx-auto my-8 ${isEn ? 'text-left' : 'text-right'}`}>

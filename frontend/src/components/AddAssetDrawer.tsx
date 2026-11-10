@@ -47,13 +47,14 @@ export const AddAssetDrawer: React.FC<AddAssetDrawerProps> = ({ isOpen, onClose 
     setStep(3);
   };
 
-  const handleFinalSubmit = (e: React.FormEvent) => {
+  const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const site = sites.find((s) => s.id === siteId);
     const service = services.find((s) => s.id === criticalServiceId);
     const backupAsset = assets.find((a) => a.id === backupAssetId);
 
-    addAsset({
+    try {
+    await addAsset({
       name,
       nameEn: name,
       code,
@@ -85,6 +86,7 @@ export const AddAssetDrawer: React.FC<AddAssetDrawerProps> = ({ isOpen, onClose 
     setName('');
     setCode('');
     onClose();
+    } catch { /* Keep drawer open for correction. */ }
   };
 
   return (
