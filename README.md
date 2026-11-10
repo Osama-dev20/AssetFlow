@@ -1,123 +1,217 @@
-Core Architectural Modules & Functional Interfaces
-1. Public Landing Page
-Announcement Ticker: Dynamic, moving ticker highlighting major system updates and release notes.
+# AssetFlow
 
-Navigation Mega Menu: Structured multi-column dropdown designed for seamless exploration of platform capabilities.
+### Smart Asset & Maintenance Management Platform
 
-Interactive Hero Section: High-fidelity dashboard interface mockup demonstrating live operational data.
+AssetFlow is a modern web-based Computerized Maintenance Management System (CMMS) designed to help organizations manage their assets, track equipment failures, prioritize maintenance tasks, and optimize resource utilization.
 
-Priority Formula Calculator: Interactive simulation tool allowing visitors to adjust weighting sliders and instantly observe dynamic priority score recalibrations.
+The platform focuses on helping organizations make smarter maintenance decisions, especially when resources, spare parts, and technical teams are limited.
 
-Critical Sector Showcase: Dedicated architectural breakdowns for water utilities, hospitals, and heavy industrial facilities.
+## Project Overview
 
-2. Authentication & Demo Personas
-Quick Access Portal: One-click role impersonation allowing instant login as an Organization Administrator (Tariq Nabulsi) or Senior Mechanical Technician (Ahmad Khalil).
+Many organizations rely on critical equipment such as generators, water pumps, medical devices, and cooling systems.
 
-Secure Recovery Flow: Streamlined password recovery mechanism with automated confirmation feedback.
+When multiple failures occur simultaneously, maintenance teams need more than a simple fault-reporting system. They need a way to understand the impact of each failure, determine which issue requires immediate attention, and allocate available resources efficiently.
 
-Multi-Step Onboarding: Two-phase corporate registration workflow (facility profile followed by supervisor credentials) enhanced with celebratory visual feedback.
+**AssetFlow provides a centralized platform for managing these challenges.**
 
-3. Executive Dashboard
-Critical Service Banner: Real-time emergency alert banner tracking compromised vital services with direct deep-linking to active work orders.
+## Key Features
 
-Key Performance Indicators (KPIs): Core metric cards measuring operational assets, stable services, open work orders, and preventive maintenance compliance via dynamic progress bars.
+- **Authentication & Authorization:** User authentication and role-based access control.
+- **Dashboard:** Overview of assets, reported issues, and maintenance activities.
+- **Asset Management:** Register, view, and update organizational assets.
+- **Site Management:** Organize assets across multiple locations.
+- **Issue Management:** Report equipment failures and manage maintenance issues.
+- **AI-Assisted Analysis:** Analyze reported issues to support maintenance prioritization.
+- **User Management:** Manage system users and technicians.
+- **Responsive Interface:** Modern user interface designed for different screen sizes.
 
-Attention Matrix: Prioritized degradation queue visualized through conic gradient progress rings.
+### Features Under Development
 
-Live Pulse Indicators: Continuous heartbeat telemetry monitoring critical infrastructure health alongside geographical asset mapping.
+- Work Order Management
+- Preventive Maintenance Scheduling
+- Advanced Dashboard Analytics
+- Configurable Priority Settings
+- Advanced Reporting
 
-4. Intelligent Asset Registry
-Multi-Parameter Search: Instantaneous filtering by asset identification code, nomenclature, or facility designation.
+## Technologies Used
 
-Advanced State Filtering: Granular sorting capabilities based on operational status (active, under maintenance, decommissioned) and physical location.
+### Frontend
 
-Dual View Modes: Seamless toggling between structured tabular layouts and high-density card grids.
+- React
+- TypeScript
+- Vite
+- CSS
+- React Router
+- Fetch API
 
-Multi-Step Provisioning Drawer: Guided 3-step asset registration wizard featuring real-time validation, critical service mapping, and standby asset assignment.
+### Backend
 
-5. Asset Detail & Engineering Specifications
-Technical Header Card: High-level specification summary featuring core reliability metrics including Mean Time Between Failures (MTBF), Mean Time to Repair (MTTR), and cumulative operating hours.
+- Laravel
+- PHP
+- RESTful APIs
+- Laravel Sanctum
+- Relational Database
 
-Tabular Modular Analytics:
+## Project Repositories
 
-Overview: Motor specifications, capacity metrics, warranty status, and associated critical services.
+The project is organized into separate frontend and backend repositories.
 
-Maintenance History: Chronological audit trail of all prior work orders.
+**Frontend — React + TypeScript**
 
-Spare Parts & Inventory: Compatible component inventory tracking with direct requisition workflows.
+https://github.com/Osama-dev20/AssetFlow
 
-Field QR Code Generator: Dedicated utility modal for instant printing and deployment of field asset identification labels.
+**Backend — Laravel**
 
-6. Work Orders & Priority Kanban Board
-Interactive Kanban Workflow: Four-stage operational board (New, In Progress, Awaiting Parts, Completed) supporting instant drag-and-drop status updates.
+https://github.com/fayezrajab2004/AssetFlow-Backend
 
-Explainable Priority Modal: Transparent algorithmic breakdown triggered upon selecting any priority score, detailing quantitative impact factors:
+The frontend communicates with the Laravel backend through REST APIs, using Laravel Sanctum for authentication.
 
-Critical service disruption impact (+40)
+## Getting Started
 
-Absence of redundant backup (+25)
+### Prerequisites
 
-Service Level Agreement (SLA) breach delay (+12)
+Make sure you have the following installed:
 
-Historical failure recurrence frequency (+9)
+- Node.js
+- npm
+- PHP
+- Composer
+- A database supported by Laravel
+- Git
 
-Work Order Dispatch Drawer: Rapid creation and technician assignment interface.
+### 1. Clone the Frontend Repository
 
-7. Critical Services Matrix & Failure Simulator
-Interactive Vital Mapping: Geographical and topological layout of critical services (potable water, medical oxygen, emergency power, fire suppression) with real-time hourly downtime cost estimation.
+```bash
+git clone https://github.com/Osama-dev20/AssetFlow.git
+cd AssetFlow/frontend
+```
 
-Emergency Scenario Simulator: Interactive stress-testing tool enabling operators to simulate component failures (pumps, generators) to calculate operational impact propagation speeds across the facility.
+### 2. Install Frontend Dependencies
 
-8. Preventive Maintenance Management
-Recurring Schedule Matrix: Structured cyclical maintenance timelines (weekly, monthly, quarterly).
+```bash
+npm install
+```
 
-Interactive Execution Checklists: Step-by-step digital verification lists guiding technicians through systematic inspection protocols with automated progress tracking.
+### 3. Start the Frontend
 
-9. Sites & Facilities Management
-Facility Topology Cards: Comprehensive overview of geographical sites, asset distributions, and individual facility operational statuses.
+```bash
+npm run dev
+```
 
-Dynamic Provisioning Modal: Streamlined dialog for commissioning new operational sites or sub-stations.
+The frontend development server will be available at:
 
-10. Team Roles & Access Control
-Personnel Directory: Engineer and technician profiles detailing institutional specializations and live connectivity states.
+```text
+http://localhost:3000
+```
 
-Role-Based Access Control (RBAC): Granular permission matrix tailored for Administrators, Operations Managers, Technicians, and Reporters.
+### 4. Clone the Backend Repository
 
-Invitation Protocol: Secure member onboarding workflow featuring automated credential verification and token generation.
+Open a separate terminal:
 
-11. Advanced Analytics & Reporting
-Temporal Flex-Reporting: Instantaneous switching between 90-day rolling windows and full annual compliance cycles.
+```bash
+git clone https://github.com/fayezrajab2004/AssetFlow-Backend.git
+```
 
-SLA Compliance Tracking: Operational readiness scoring and SLA adherence analytics (maintaining a 94% benchmark).
+### 5. Install Backend Dependencies
 
-Enterprise Export Suite: One-click generation and export of standardized CSV and PDF compliance reports.
+```bash
+composer install
+```
 
-12. System Settings & Priority Customization
-Dynamic Weight Sliders: Real-time configuration parameters allowing administrators to tune priority scoring algorithms with instant interface previews.
+### 6. Configure Laravel
 
-SLA Threshold Configuration: Customizable minute and hour-based response thresholds.
+Create your environment file from the example:
 
-Localization & Preferences: Facility profile management, currency selectors, and notification routing rules.
+```bash
+cp .env.example .env
+```
 
-13. System Audit Log
-Chronological Traceability: Tamper-evident, timestamped event log tracking every system modification and administrative action, filterable by functional category.
+Configure your database credentials and application settings in `.env`.
 
-14. Command Palette Utility
-Global Navigation: Universal keyboard shortcut (Ctrl + K) enabling rapid, fuzzy-searched access to any asset, work order, or platform module from anywhere in the system.
+Generate the application key:
 
-Enterprise Technology Stack
-Core Framework: React 19
+```bash
+php artisan key:generate
+```
 
-Type Safety: TypeScript
+Run database migrations:
 
-Build System: Vite
+```bash
+php artisan migrate
+```
 
-Styling Architecture: Tailwind CSS v4 (@tailwindcss/vite)
+If the backend provides seeders for development data, run them according to the backend documentation.
 
-Iconography: Lucide Icons
+### 7. Start the Backend Server
 
-Visual Effects: Canvas Confetti
+```bash
+php artisan serve --host=localhost --port=8000
+```
 
-Typography: Google Fonts (IBM Plex Sans Arabic & IBM Plex Mono)
+Backend URL:
 
-Persistence Layer: Local Storage State Persistence
+```text
+http://localhost:8000
+```
+
+Ensure that Laravel Sanctum, CORS, and session settings allow requests from the frontend development server.
+
+## System Workflow
+
+AssetFlow follows a structured maintenance management process:
+
+1. **Issue Reporting:** A user reports an equipment failure.
+2. **Issue Analysis:** The system analyzes the reported problem.
+3. **Priority Assessment:** Maintenance urgency is evaluated based on the issue's impact.
+4. **Resource Evaluation:** Available resources and spare parts are considered.
+5. **Task Assignment:** Maintenance work is assigned to the appropriate technician.
+6. **Progress Tracking:** Maintenance activities are monitored.
+7. **Impact Monitoring:** The organization reviews maintenance outcomes.
+8. **Reporting:** Maintenance data supports operational decisions.
+9. **Continuous Improvement:** Historical information helps improve future maintenance planning.
+
+Some workflow stages are planned and are not yet fully implemented.
+
+## Target Organizations
+
+AssetFlow is designed for organizations that depend on critical physical assets, including:
+
+- Hospitals and healthcare facilities
+- Water and energy providers
+- Universities and educational institutions
+- Municipalities
+- Industrial facilities
+- NGOs and field operations
+
+## Project Status
+
+**Status: Active Development**
+
+The main frontend interfaces and core backend integrations have been implemented.
+
+Authentication, asset management, site management, issue management, and user-related integrations are available for testing.
+
+Work orders, preventive maintenance, advanced statistics, and additional configuration features require further backend integration and testing.
+
+## Project Team
+
+AssetFlow is developed as a **Computer Science Graduation Project**.
+
+The development team consists of:
+
+- 2 Frontend Developers — React & TypeScript
+- 2 Backend Developers — Laravel
+- 1 UI/UX Designer
+
+## Project Goals
+
+- Improve maintenance management efficiency.
+- Reduce equipment downtime.
+- Support data-driven maintenance decisions.
+- Prioritize critical failures.
+- Improve resource allocation.
+- Provide an accessible and organized maintenance management experience.
+
+---
+
+**AssetFlow — Smarter Maintenance. Better Decisions.**
